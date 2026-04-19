@@ -3,139 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rock paper scissors</title>
+    <title>Online_Game:</title>
     <style>
-        div{
-            justify-self: center;
-        }
-        button{
-            margin-right:50px;
-            padding: 10px;
-            width:90px;
-            height:40px;
-            margin-top: 60px;
-            border-width: 3px;
-            border-color: aqua;
-            border-radius: 15px;
-            font-size: 14px;
-            font-weight: bold;
+       /* body{
+            background-color: black;
+            color:white;
             font-family: 'Courier New', Courier, monospace;
         }
-        h1{
-            margin-right: 
+        div{
+            margin-top: 90px;
+            justify-self: center;
+            border: solid 2px aqua;
+            padding:60px;
+            border-radius: 30px;
         }
+        button{
+            padding:10px;
+            border: solid 3px aqua;
+            border-radius: 20px;
+            width: 90px;
+        }
+        .rock{
+            margin-right:23px;
+        }
+        .paper{
+            margin-right:23px; 
+        }
+        h1{
+            margin-bottom: 50px;
+        }
+        .reset{
+            margin-top:25px;
+            margin-left: 120px;
+        }
+        .display{
+           color:white;
+        }*/
+
+        body{
+            background-color:black;
+            color:white;
+        }
+
+        button{
+            background-color: inherit;
+            color: inherit;
+            padding:20px;
+            border : 2px solid aqua;
+            border-radius: 50%;
+            margin-left:20px;
+        }
+
+        .button-move{
+           width:60px;
+           background-color:transparent;
+        }
+
+        .reset-button{
+            margin-top:30px;
+           margin-left:100px;
+        }
+
+        .container{
+            margin-top:80px;
+            justify-self: center ;
+            border: 2px solid aqua;
+            padding:80px;
+            border-radius:50px;
+        }
+
+        .reset{
+            border-radius:30px;
+
+        }
+        h1{
+            margin-left:50px;
+            margin-bottom:50px;
+        }
+
     </style>
 </head>
-<body style="background-color: black;padding-bottom: 1000px; border-radius: 50px;">
-    <div>
-            <h1 style="color:white;"> ROCK  :: PAPER  ::  SCISSOR</h1>
-            <button onclick="
-            const randomNumber=Math.random(); /*  random number give a value between 0 to 1.  */
-            
-            let computerMove='';
-
-            if(randomNumber>=0 && randomNumber<1/3){
-                computerMove='rock';
-            } else if( randomNumber>=1/3 && randomNumber<2/3){
-                computerMove='paper';
-            } else if(randomNumber>=2/3 && randomNumber>2){
-                computerMove='scissors';
-            }
-            console.log(computerMove  );
-            
-            let result='';
-
-            if( computerMove === 'rock'){
-                result=' tie.';
-            } else if(computerMove ==='paper'){
-                result='you lose.';
-            }else if(computerMove === 'scissors'){
-                result='you win';
-            }
-
-            console.log(result);
-            alert(`You picked Rock.\nThe Computer picked ${computerMove}.\n${result}`);
-            "> Rock</button>
-
-            <button onclick="
-                
-                const randomNumber2=Math.random();
-
-                let computerMove2='';
-
-                if( randomNumber2>=0 && randomNumber2<1/3){
-                    computerMove2='paper';
-                }else if( randomNumber2>=1/3 && randomNumber2<2/3){
-                    computerMove2='rock';
-                }else if( randomNumber2>=2/3 && randomNumber2<1){
-                    computerMove2='scissors';
-                }
-                
-                console.log(computerMove2);
-                
-                let result2='';
-
-                if(computerMove2==='paper'){
-                    result2='it is a tie';
-                } else if(computerMove2 ==='rock'){
-                    result2='you win';
-                } else if(computerMove2==='scissors'){
-                    result2='you loss';
-                }
-
-                console.log(result2);
-
-
-                alert(`You picked Paper. \n The Computer picked ${computerMove2}. \n ${result2}`);
-
-
-        
-
-
-            
-            ">Paper</button>
-            <button onclick="
-                
-            const ramdomNumber3=Math.random();
-
-            let computerMove3='';
-
-            if(ramdomNumber3>=0 && ramdomNumber3<1/3){
-                computerMove3='scissors';
-            }
-            else if(ramdomNumber3>=1/3 && ramdomNumber3<2/3){
-                computerMove3='paper';
-            }
-            else if( ramdomNumber3>=2/3 && ramdomNumber3<1){
-                computerMove3='rock';
-            }
-
-            console.log(computerMove3);
-
-            let result3='';
-
-
-            if(computerMove3 ===  'scissors'){
-                result3='the tie .';
-            } else if(computerMove3 ===  'paper'){
-                result3='you loss';
-            }
-            else if(computerMove3 ===  'rock'){
-                result3='you win';
-            }
-
-            console.log(result3);
-
-            alert(`You picked Scissors. \n The Computer picked ${computerMove3}. \n ${result3}`);
-
-
-
-
-            
-            ">Scissors</button>
+<body>
+    <div class="container">
+            <h1>Rock paper sicissors</h1>
+            <button class="rock" onclick="calculator('rock'); "><img class="button-move" src="/channelpic/rock-emoji.png"></button>    
+            <button class="paper" onclick="calculator('paper');"><img class="button-move" src="/channelpic/paper-emoji.png"></button>
+            <button onclick="calculator('sicissors');"><img class="button-move" src="/channelpic/sicissors-emoji.png"></button><br>
+            <div class="reset-button"><button class="reset" onclick=" reset(); "> Reset the score</button></div>
+            <p class="display"></p>
     </div>
+    
+   
+      
+     <!-- If i reset the score the score will be rremoved from the localstorage-->
+
     <script>
+        let score= JSON.parse(localStorage.getItem('score'))|| {
+            wins:0,
+            loss:0,
+            tie:0,
+        };
+        
+       
+
+     // if i reseted the local storage will be empty so i gave default value for score   
+        function calculator(playerMove){
+            const computerMove=makeComputermove();
+            let result='';
+            if(playerMove==='rock'){
+                if(computerMove==='rock'){
+                    result='The match is Tie';
+                } else if(computerMove==='paper'){
+                    result='You loss';
+                } else if(computerMove==='sicissors'){
+                    result='You won';
+                }
+                
+                 
+            } else if( playerMove==='paper'){
+                if(computerMove==='rock'){
+                    result='You won';
+                } else if(computerMove==='paper'){
+                    result='The match is Tie';
+                } else if( computerMove==='sicissors'){
+                    result='You loss';
+                }
+                
+            } else if(playerMove==='sicissors'){
+                if(computerMove==='sicissors'){
+                    result='The match is Tie';
+                } else if(computerMove==='paper'){
+                    result='You loss'
+                } else if(computerMove==='rock'){
+                    result='You won';
+                }
+                
+            }
+            if(result ==='You won'){
+                score.wins+=1;
+            }else if(result==='The match is Tie'){
+                score.tie+=1;
+            }else if(result==='You loss'){
+                score.loss+=1;
+            }
+
+            localStorage.setItem("score",JSON.stringify(score));
+            // the score which is calculated above is stored in local storage .. it will be stored untill u use reset . if you reset also you will not be able to change the history;
+
+            //alert(`You took ${playerMove}.\n The computer took ${computerMove}.\n ${result} \nwins: ${score.wins}\n loss:${score.loss}\n Ties:${score.tie} `);
+            document.querySelector('.display').innerHTML = ` ${result} <br>You took <img class="button-move" src="/channelpic/${playerMove}-emoji.png">  The computer took <img class="button-move" src="/channelpic/${computerMove}-emoji.png"> .<br><br> wins: ${score.wins}\n loss:${score.loss}\n Ties:${score.tie} `; 
+
+            return result;
+        }
+        function makeComputermove(){                  // generate a move for the computer
+            const randomNumber=Math.random();         // Math.random generate value between 0 to 1
+            let computerMove='';
+            if(randomNumber>=0 && randomNumber<=1/3){
+                computerMove='rock';
+            } else if (randomNumber>=1/3 && randomNumber<2/3){
+                computerMove='paper';
+            } else if( randomNumber>=2/3 && randomNumber<=1){
+                computerMove='sicissors';
+            }
+            return computerMove;
+        }
+
+        function reset(){
+            score.loss=0;score.wins=0;score.tie=0; localStorage.removeItem('score');
+            document.querySelector('.display').innerHTML = `wins: ${score.wins}\n loss:${score.loss}\n Ties:${score.tie} `; 
+        }
+
+
+        document.addEventListener('keydown', (event) => {
+            if(event.key === 'r'){
+                  calculator('rock');
+            }else if(event.key === 'p'){
+                  calculator('paper');
+            }else if(event.key === 's'){
+                  calculator('sicissors');
+            }
+        })
+
+
 
     </script>
+
 </body>
 </html>
