@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rock Paper Scissors</title>
+<title>Rock Paper Sicissors</title>
 
 <style>
 body{
@@ -52,7 +52,7 @@ button{
 .display{
     margin-top:30px;
     text-align:center;
-    font-size:20px;
+    font-size:22px;
     line-height:2;
 }
 </style>
@@ -62,9 +62,10 @@ button{
 
 <div class="container">
 
-<h1>Rock Paper Scissors</h1>
+<h1>Rock Paper Sicissors</h1>
 
 <div style="text-align:center;">
+
 <button onclick="playGame('rock')">
 <img class="button-move" src="rock-emoji.png">
 </button>
@@ -73,9 +74,10 @@ button{
 <img class="button-move" src="paper-emoji.png">
 </button>
 
-<button onclick="playGame('scissors')">
-<img class="button-move" src="scissors-emoji.png">
+<button onclick="playGame('sicissors')">
+<img class="button-move" src="sicissors-emoji.png">
 </button>
+
 </div>
 
 <div class="reset-box">
@@ -87,6 +89,7 @@ button{
 </div>
 
 <script>
+
 let score = JSON.parse(localStorage.getItem('score')) || {
     wins:0,
     loss:0,
@@ -99,40 +102,54 @@ function playGame(playerMove){
     let result = '';
 
     if(playerMove === 'rock'){
+
         if(computerMove === 'rock'){
             result = 'Tie';
-        }else if(computerMove === 'paper'){
-            result = 'You Lose';
-        }else{
-            result = 'You Win';
         }
+        else if(computerMove === 'paper'){
+            result = 'You Loss';
+        }
+        else{
+            result = 'You Won';
+        }
+
     }
 
     else if(playerMove === 'paper'){
-        if(computerMove === 'rock'){
-            result = 'You Win';
-        }else if(computerMove === 'paper'){
-            result = 'Tie';
-        }else{
-            result = 'You Lose';
-        }
-    }
 
-    else if(playerMove === 'scissors'){
         if(computerMove === 'rock'){
-            result = 'You Lose';
-        }else if(computerMove === 'paper'){
-            result = 'You Win';
-        }else{
+            result = 'You Won';
+        }
+        else if(computerMove === 'paper'){
             result = 'Tie';
         }
+        else{
+            result = 'You Loss';
+        }
+
     }
 
-    if(result === 'You Win'){
+    else if(playerMove === 'sicissors'){
+
+        if(computerMove === 'rock'){
+            result = 'You Loss';
+        }
+        else if(computerMove === 'paper'){
+            result = 'You Won';
+        }
+        else{
+            result = 'Tie';
+        }
+
+    }
+
+    if(result === 'You Won'){
         score.wins++;
-    }else if(result === 'You Lose'){
+    }
+    else if(result === 'You Loss'){
         score.loss++;
-    }else{
+    }
+    else{
         score.tie++;
     }
 
@@ -140,16 +157,18 @@ function playGame(playerMove){
 
     document.querySelector('.display').innerHTML =
     `${result}<br><br>
-    You:
+
+    You took
     <img class="button-move" src="${playerMove}-emoji.png">
 
-    Computer:
+    The computer took
     <img class="button-move" src="${computerMove}-emoji.png">
 
     <br><br>
-    Wins: ${score.wins}
-    Loss: ${score.loss}
-    Tie: ${score.tie}`;
+
+    wins: ${score.wins}
+    loss: ${score.loss}
+    Ties: ${score.tie}`;
 }
 
 function makeComputerMove(){
@@ -158,14 +177,17 @@ function makeComputerMove(){
 
     if(random < 1/3){
         return 'rock';
-    }else if(random < 2/3){
+    }
+    else if(random < 2/3){
         return 'paper';
-    }else{
-        return 'scissors';
+    }
+    else{
+        return 'sicissors';
     }
 }
 
 function resetScore(){
+
     score = {
         wins:0,
         loss:0,
@@ -175,7 +197,7 @@ function resetScore(){
     localStorage.removeItem('score');
 
     document.querySelector('.display').innerHTML =
-    `Wins: 0 Loss: 0 Tie: 0`;
+    `wins: 0 loss: 0 Ties: 0`;
 }
 
 document.addEventListener('keydown', function(event){
@@ -187,10 +209,11 @@ document.addEventListener('keydown', function(event){
         playGame('paper');
     }
     else if(event.key === 's'){
-        playGame('scissors');
+        playGame('sicissors');
     }
 
 });
+
 </script>
 
 </body>
