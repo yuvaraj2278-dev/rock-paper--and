@@ -13,20 +13,20 @@ body{
 }
 
 .container{
-    margin-top:80px;
-    justify-self:center;
+    width:600px;
+    margin:60px auto;
     border:2px solid aqua;
-    padding:80px;
     border-radius:40px;
+    padding:60px;
+    text-align:center;
 }
 
 h1{
-    text-align:center;
     margin-bottom:50px;
 }
 
 button{
-    background-color:transparent;
+    background:transparent;
     border:2px solid aqua;
     border-radius:50%;
     padding:20px;
@@ -36,23 +36,19 @@ button{
 
 .button-move{
     width:60px;
+    height:60px;
 }
 
 .reset{
-    border-radius:25px;
-    padding:12px 20px;
+    border-radius:30px;
+    padding:15px 25px;
     color:white;
-}
-
-.reset-box{
-    text-align:center;
-    margin-top:25px;
+    margin-top:20px;
 }
 
 .display{
-    margin-top:30px;
-    text-align:center;
-    font-size:22px;
+    margin-top:35px;
+    font-size:28px;
     line-height:2;
 }
 </style>
@@ -62,27 +58,23 @@ button{
 
 <div class="container">
 
-<h1>Rock Paper Sicissors</h1>
-
-<div style="text-align:center;">
+<h1>Rock paper sicissors</h1>
 
 <button onclick="playGame('rock')">
-<img class="button-move" src="rock-emoji.png">
+<img class="button-move" src="./rock-emoji.png">
 </button>
 
 <button onclick="playGame('paper')">
-<img class="button-move" src="paper-emoji.png">
+<img class="button-move" src="./paper-emoji.png">
 </button>
 
 <button onclick="playGame('sicissors')">
-<img class="button-move" src="sicissors-emoji.png">
+<img class="button-move" src="./sicissors-emoji.png">
 </button>
 
-</div>
+<br>
 
-<div class="reset-box">
-<button class="reset" onclick="resetScore()">Reset Score</button>
-</div>
+<button class="reset" onclick="resetScore()">Reset the score</button>
 
 <p class="display"></p>
 
@@ -156,15 +148,15 @@ function playGame(playerMove){
     localStorage.setItem('score', JSON.stringify(score));
 
     document.querySelector('.display').innerHTML =
-    `${result}<br><br>
+    `${result}<br>
 
-    You took
-    <img class="button-move" src="${playerMove}-emoji.png">
+    You took 
+    <img class="button-move" src="./${playerMove}-emoji.png">
 
-    The computer took
-    <img class="button-move" src="${computerMove}-emoji.png">
+    The computer took 
+    <img class="button-move" src="./${computerMove}-emoji.png">
 
-    <br><br>
+    <br>
 
     wins: ${score.wins}
     loss: ${score.loss}
